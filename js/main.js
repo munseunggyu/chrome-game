@@ -1,5 +1,6 @@
 const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
+const score = document.querySelector('.score');
 
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
@@ -14,12 +15,10 @@ const dino = {
   height:50,
   draw(){
     ctx.fillStyle = "green";
-    ctx.drawImage(dinoImage,this.x,this.y,this.width,this.height) 
+    ctx.drawImage(dinoImage,this.x,this.y,this.width,this.height) ;
   }
 }
 
-// const img1 = new Image(); 
-// img1.src = 주소 
 
 // 장애물 object 생성
 class Cactus{
@@ -32,7 +31,6 @@ class Cactus{
   draw(){
     ctx.fillStyle = "red";
     ctx.fillRect(this.x,this.y,this.width,this.height);
-    // ctx.drawImage(img1,this.x,this.y)  img 넣기
   }
 }
 
@@ -60,18 +58,19 @@ function dinoMove(){
     a.draw();   
   })
   if(jump === true){
-    dino.y-=2 ;
+    dino.y-=3 ;
     jumptimer+=2;
   }
   if(jump === false){
     if(dino.y < 200){
-      dino.y++;
+      dino.y+=3;
     }
   }
   if(jumptimer > 100){
     jump = false;
     jumptimer = 0;
   }
+  score.innerText = timer
   
   dino.draw();
 }
@@ -79,17 +78,17 @@ dinoMove()
 
 // jump event
 document.addEventListener('keydown',function(e){
-  if(e.code ==='Space'){
-    jump = true; 
+  if(e.code ==='Space' && dino.y === 200){
+    jump = true;
   }
 })
 
 // crash
 function crash(dino,cactus){
-  const diffx = cactus.x - (dino.x + dino.width)
-  const diffy = cactus.y - (dino.y + dino.height)
+  const diffx = cactus.x - (dino.x + dino.width);
+  const diffy = cactus.y - (dino.y + dino.height);
   if(diffx < 0 && diffy < 0){
     ctx.clearRect(0,0,canvas.width,canvas.height); 
-    cancelAnimationFrame(animation)    //animation stop
+    cancelAnimationFrame(animation);   //animation stop
   }
 }
