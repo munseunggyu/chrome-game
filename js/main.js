@@ -2,8 +2,8 @@ const canvas = document.querySelector('#canvas');
 const ctx = canvas.getContext('2d');
 const score = document.querySelector('.score');
 
-canvas.width = window.innerWidth - 100;
-canvas.height = window.innerHeight - 100;
+canvas.width = 700;
+canvas.height = 700;
 
 const dinoImage = new Image();
 dinoImage.src = "dino.png"
